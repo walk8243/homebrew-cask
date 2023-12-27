@@ -31,25 +31,15 @@ jobs:
       - uses: actions/checkout@v4
       - name: check cask
         run: if [[ ! -e "Casks/${{ inputs.cask }}.rb" ]]; then echo "'Casks/${{ inputs.cask }}.rb' is not exists."; exit 1; fi
-      - run: git switch -c test
       - name: update casks
         run: |
           cat template/casks/${{ inputs.cask }}.rb \
-            | sed 's/CASK_VERSION/1.2.3/g' \
-            | sed 's/CASK_SHA256/37cbd6615440141386697092587c4a7702d1d79a/g' > Casks/${{ inputs.cask }}.rb
-      - name: after file
-        run: cat Casks/${{ inputs.cask }}.rb
-      - run: |
-          git add .
-          git commit --message 'file changed'
-          git push origin test
-      - name: create pullrequest
+            | sed 's/CASK_VERSION/${{ inputs.version }}/g' \
+            | sed 's/CASK_SHA256/${{ inputs.sha256 }}/g' > Casks/${{ inputs.cask }}.rb
+      - name: commit
         run: |
-          gh pr create \
-            --title "${{ inputs.cask }} is updated to ${{ inputs.version }}" \
-            --body "See ${{ inputs.url }} for details." \
-            --label "brew" > pr-url.txt
-      - name: print pr url
-        run: cat pr-url.txt
+          git add .
+          git commit --message 'Update ${{ inputs.cask }} cask version'
+          git push
     env:
       GH_TOKEN: ${{ github.token }}
