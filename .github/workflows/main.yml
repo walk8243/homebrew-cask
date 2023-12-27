@@ -15,6 +15,9 @@ on:
       sha256:
         required: true
         type: string
+      url:
+        required: true
+        type: string
 
 jobs:
   update-cask:
@@ -29,9 +32,13 @@ jobs:
       - name: check cask
         run: if [[ ! -e "Casks/${{ inputs.cask }}.rb" ]]; then echo "'Casks/${{ inputs.cask }}.rb' is not exists."; exit 1; fi
       - run: git switch -c test
-      - run: sed -i 's/yellow/red/g' src/index.ts
+      - name: update casks
+        run: |
+          cat template/casks/${{ inputs.cask }}.rb \
+            | sed 's/CASK_VERSION/1.2.3/g' \
+            | sed 's/CASK_SHA256/37cbd6615440141386697092587c4a7702d1d79a/g' > Casks/${{ inputs.cask }}.rb
       - name: after file
-        run: cat src/index.ts
+        run: cat Casks/${{ inputs.cask }}.rb
       - run: |
           git add .
           git commit --message 'file changed'
@@ -40,7 +47,7 @@ jobs:
         run: |
           gh pr create \
             --title "${{ inputs.cask }} is updated to ${{ inputs.version }}" \
-            --body "GitHub Actions created." \
+            --body "See ${{ inputs.url }} for details." \
             --label "brew" > pr-url.txt
       - name: print pr url
         run: cat pr-url.txt
