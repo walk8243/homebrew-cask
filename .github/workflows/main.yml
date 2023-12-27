@@ -1,0 +1,45 @@
+name: brew-update dispatch receive
+
+on:
+  workflow_dispatch:
+    inputs:
+      type:
+        required: true
+        type: string
+      cask:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+      sha256:
+        required: true
+        type: string
+      url:
+        required: true
+        type: string
+
+jobs:
+  update-cask:
+    if: ${{ inputs.type === 'brew' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup git user
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+      - uses: actions/checkout@v4
+      - name: check cask
+        run: if [[ ! -e "Casks/${{ inputs.cask }}.rb" ]]; then echo "'Casks/${{ inputs.cask }}.rb' is not exists."; exit 1; fi
+      - name: update casks
+        run: |
+          cat template/casks/${{ inputs.cask }}.rb \
+            | sed 's/CASK_VERSION/${{ inputs.version }}/g' \
+            | sed 's/CASK_SHA256/${{ inputs.sha256 }}/g' > Casks/${{ inputs.cask }}.rb
+      - name: commit
+        run: |
+          git add .
+          git commit --message 'Update ${{ inputs.cask }} cask version'
+          git push
+    env:
+      GH_TOKEN: ${{ github.token }}
