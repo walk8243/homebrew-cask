@@ -1,0 +1,48 @@
+name: brew-update dispatch receive
+
+on:
+  workflow_dispatch:
+    inputs:
+      type:
+        required: true
+        type: string
+      cask:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+      sha256:
+        required: true
+        type: string
+
+jobs:
+  update-cask:
+    if: ${{ inputs.type === 'brew' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup git user
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+      - uses: actions/checkout@v4
+      - name: check cask
+        run: if [[ ! -e "Casks/${{ inputs.cask }}.rb" ]]; then echo "'Casks/${{ inputs.cask }}.rb' is not exists."; exit 1; fi
+      - run: git switch -c test
+      - run: sed -i 's/yellow/red/g' src/index.ts
+      - name: after file
+        run: cat src/index.ts
+      - run: |
+          git add .
+          git commit --message 'file changed'
+          git push origin test
+      - name: create pullrequest
+        run: |
+          gh pr create \
+            --title "${{ inputs.cask }} is updated to ${{ inputs.version }}" \
+            --body "GitHub Actions created." \
+            --label "brew" > pr-url.txt
+      - name: print pr url
+        run: cat pr-url.txt
+    env:
+      GH_TOKEN: ${{ github.token }}
