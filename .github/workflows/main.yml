@@ -21,7 +21,7 @@ on:
 
 jobs:
   update-cask:
-    if: ${{ inputs.type === 'brew' }}
+    if: ${{ inputs.type == 'brew' }}
     runs-on: ubuntu-latest
     steps:
       - name: setup git user
