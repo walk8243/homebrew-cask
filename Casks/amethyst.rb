@@ -1,6 +1,6 @@
 cask "amethyst" do
-  version "0.9.3"
-  sha256 "0b6ce6fe9562755a0c3e49fb5083c6d7b06405cec5a079ffe308af43f674fc58"
+  version "0.10.0"
+  sha256 "80871a25d2741afe53046cd52bf964ba1f54e765326ab022d0f1b4ef0eeb5858"
 
   url "https://github.com/walk8243/amethyst-electron/releases/download/#{version}/amethyst-#{version}-mac.zip"
   name "Amethyst"
