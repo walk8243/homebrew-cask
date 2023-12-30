@@ -4,7 +4,7 @@ cask "amethyst" do
 
   url "https://github.com/walk8243/amethyst-electron/releases/download/#{version}/amethyst-#{version}-mac.zip"
   name "Amethyst"
-  desc "Desktop app to view and manage GitHub Issues that are relevant to me."
+  desc "A simple issue reader for GitHub"
   homepage "https://github.com/walk8243/amethyst-electron"
 
   app "amethyst.app"
