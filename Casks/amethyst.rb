@@ -1,10 +1,10 @@
 cask "amethyst" do
-  version "0.10.0"
-  sha256 "80871a25d2741afe53046cd52bf964ba1f54e765326ab022d0f1b4ef0eeb5858"
+  version "1.0.0"
+  sha256 "45684486da70532c4a88935c2f7412c545a0dbbcf2d46ffb5a3fab6d4727c584"
 
   url "https://github.com/walk8243/amethyst-electron/releases/download/#{version}/amethyst-#{version}-mac.zip"
   name "Amethyst"
-  desc "Desktop app to view and manage GitHub Issues that are relevant to me."
+  desc "A simple issue reader for GitHub"
   homepage "https://github.com/walk8243/amethyst-electron"
 
   app "amethyst.app"
