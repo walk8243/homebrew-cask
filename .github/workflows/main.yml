@@ -13,11 +13,14 @@ on:
         required: true
         type: string
       sha256:
+        description: 'SHA-256 for M1 Mac'
         required: true
         type: string
-      url:
+      sha256_intel:
+        description: 'SHA-256 for Intel Mac'
         required: true
         type: string
+        default: ''
 
 jobs:
   update-cask:
@@ -35,7 +38,8 @@ jobs:
         run: |
           cat template/casks/${{ inputs.cask }}.rb \
             | sed 's/CASK_VERSION/${{ inputs.version }}/g' \
-            | sed 's/CASK_SHA256/${{ inputs.sha256 }}/g' > Casks/${{ inputs.cask }}.rb
+            | sed 's/CASK_SHA256/${{ inputs.sha256 }}/g' \
+            | sed 's/CASK_SHA256_INTEL/${{ inputs.sha256_intel }}/g'> Casks/${{ inputs.cask }}.rb
       - name: commit
         run: |
           git add .
