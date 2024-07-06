@@ -37,9 +37,9 @@ jobs:
       - name: update casks
         run: |
           cat template/casks/${{ inputs.cask }}.rb \
-            | sed 's/CASK_VERSION/${{ inputs.version }}/g' \
-            | sed 's/CASK_SHA256/${{ inputs.sha256 }}/g' \
-            | sed 's/CASK_SHA256_INTEL/${{ inputs.sha256_intel }}/g'> Casks/${{ inputs.cask }}.rb
+            | sed 's/__CASK_VERSION__/${{ inputs.version }}/g' \
+            | sed 's/__CASK_SHA256__/${{ inputs.sha256 }}/g' \
+            | sed 's/__CASK_SHA256_INTEL__/${{ inputs.sha256_intel }}/g'> Casks/${{ inputs.cask }}.rb
       - name: commit
         run: |
           git add .
