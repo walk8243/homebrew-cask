@@ -1,12 +1,11 @@
 cask "amethyst" do
+  arch arm: "mac", intel: "mac-intel"
   version "v1.16.2"
 
   on_arm do
-    arch "mac"
     sha256 "ca4390772e234fb8e7553279fd6dcf697f53459900de2477819b35f09897f181"
   end
   on_intel do
-    arch "mac-intel"
     sha256 "73ecf59c31f31056276bbe4de140acc906e090cd10b419373f247b286831402c"
   end
 
