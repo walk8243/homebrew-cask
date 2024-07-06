@@ -7,7 +7,7 @@ cask "amethyst" do
   end
   on_intel do
     arch "mac-intel"
-    sha256 "ca4390772e234fb8e7553279fd6dcf697f53459900de2477819b35f09897f181_INTEL"
+    sha256 "73ecf59c31f31056276bbe4de140acc906e090cd10b419373f247b286831402c"
   end
 
   url "https://github.com/walk8243/amethyst-electron/releases/download/#{version}/amethyst-#{version}-#{arch}.zip"
