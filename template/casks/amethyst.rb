@@ -1,12 +1,11 @@
 cask "amethyst" do
+  arch arm: "mac", intel: "mac-intel"
   version "__CASK_VERSION__"
 
   on_arm do
-    arch "mac"
     sha256 "__CASK_SHA256__"
   end
   on_intel do
-    arch "mac-intel"
     sha256 "__CASK_SHA256_INTEL__"
   end
 
