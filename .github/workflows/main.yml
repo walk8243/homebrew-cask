@@ -5,7 +5,10 @@ on:
     inputs:
       type:
         required: true
-        type: string
+        type: choice
+        default: 'brew'
+        options:
+          - brew
       cask:
         required: true
         type: string
