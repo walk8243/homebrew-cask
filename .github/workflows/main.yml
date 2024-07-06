@@ -46,7 +46,7 @@ jobs:
       - name: commit
         run: |
           git add .
-          git commit --message 'Update ${{ inputs.cask }} cask version'
+          git commit --message 'Update ${{ inputs.cask }} cask to ${{ inputs.version }}'
           git push
     env:
       GH_TOKEN: ${{ github.token }}
