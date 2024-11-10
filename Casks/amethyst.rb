@@ -1,12 +1,12 @@
 cask "amethyst" do
   arch arm: "mac", intel: "mac-intel"
-  version "v1.16.2"
+  version "v1.16.3"
 
   on_arm do
-    sha256 "ca4390772e234fb8e7553279fd6dcf697f53459900de2477819b35f09897f181"
+    sha256 "6da8572307ed62e0127560493048af0df4a9f8e240513846ae72d5e75c0560aa"
   end
   on_intel do
-    sha256 "73ecf59c31f31056276bbe4de140acc906e090cd10b419373f247b286831402c"
+    sha256 "b747cab23b30693b20193da2abb416276a7184c437545e6c03b9dbaee9509fed"
   end
 
   url "https://github.com/walk8243/amethyst-electron/releases/download/#{version}/amethyst-#{version}-#{arch}.zip"
